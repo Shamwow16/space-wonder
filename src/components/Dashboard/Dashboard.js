@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { distance } from "../../helpers/distance_helper";
 import {
   formatImageUrl,
@@ -18,7 +18,7 @@ export const Dashboard = () => {
   const [imageUrl, setImageUrl] = React.useState(null);
 
   const findClosestImage = () => {
-    if (imagesMetadata.length == 0) return;
+    if (imagesMetadata.length === 0) return;
     const { latitude: issLat, longitude: issLon } = issLocation;
     const closestImage = imagesMetadata.reduce(
       (prevMetadata, currentMetadata) => {
@@ -66,8 +66,8 @@ export const Dashboard = () => {
     const image = findClosestImage();
     setClosestImage(image);
     const imageUrl = formatImageUrl(image);
-
     setImageUrl(imageUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagesMetadata]);
 
   return (
@@ -83,7 +83,7 @@ export const Dashboard = () => {
             <ImageMetadataView imageMetadata={closestImage} />
           </div>
           <div className="imageContainer">
-            <img src={imageUrl} />
+            <img alt="epic-viewer-earth" src={imageUrl} />
           </div>
         </div>
       ) : (
