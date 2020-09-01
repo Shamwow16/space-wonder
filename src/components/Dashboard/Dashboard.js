@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { distance } from "../../helpers/distance_helper";
+import {
+  formatImageUrl,
+  setRequestsForPastWeek,
+} from "../../helpers/request_helper";
 import { ImageMetadataView } from "../ImageMetadataView/ImageMetadataView";
 import axios from "axios";
-import moment from "moment";
 import "./Dashboard.css";
 
 export const Dashboard = () => {
-  const [issLocation, setIssLocation] = useState({
+  const [issLocation, setIssLocation] = React.useState({
     latitude: null,
     longitude: null,
   });
-  const [imagesMetadata, setImagesMetadata] = useState([]);
-  const [closestImage, setClosestImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imagesMetadata, setImagesMetadata] = React.useState([]);
+  const [closestImage, setClosestImage] = React.useState(null);
+  const [imageUrl, setImageUrl] = React.useState(null);
 
   const findClosestImage = () => {
     if (imagesMetadata.length == 0) return;
@@ -34,31 +37,6 @@ export const Dashboard = () => {
       }
     );
     return closestImage;
-  };
-
-  const formatImageUrl = (closestImage) => {
-    const baseUrl = "https://api.nasa.gov/EPIC/archive/natural";
-    const timestamp = closestImage.identifier;
-    const year = timestamp.slice(0, 4);
-    const month = timestamp.slice(4, 6);
-    const day = timestamp.slice(6, 8);
-
-    return `${baseUrl}/${year}/${month}/${day}/png/${closestImage.image}.png?api_key=${process.env.REACT_APP_NASA_API_KEY}`;
-  };
-
-  const getLastWeekDateStamps = () => {
-    const dates = [...Array(30)].map((_, i) =>
-      moment().subtract(i, "d").format("YYYY-MM-DD")
-    );
-    return dates;
-  };
-
-  const setRequestsForPastWeek = () => {
-    return getLastWeekDateStamps().map((dateStamp) => {
-      return axios.get(
-        `https://api.nasa.gov/EPIC/api/natural/date/${dateStamp}?api_key=${process.env.REACT_APP_NASA_API_KEY}`
-      );
-    });
   };
 
   useEffect(() => {
@@ -93,17 +71,23 @@ export const Dashboard = () => {
   }, [imagesMetadata]);
 
   return (
-    <div className="App">
-      {imageUrl && (
-        <div className="appContainer">
-          <h1>Current ISS Coordinates</h1>
-          <h2>Latitude: {issLocation.latitude}</h2>
-          <h2>Longitude: {issLocation.longitude}</h2>
-          <ImageMetadataView imageMetadata={closestImage} />
+    <div className="dashboardContainer">
+      {imageUrl ? (
+        <div className="dashboard">
+          <div className="infoContainer">
+            <div className="issInformationContainer">
+              <h1>Current ISS Coordinates</h1>
+              <p>Latitude: {issLocation.latitude}</p>
+              <p>Longitude: {issLocation.longitude}</p>
+            </div>
+            <ImageMetadataView imageMetadata={closestImage} />
+          </div>
           <div className="imageContainer">
             <img src={imageUrl} />
           </div>
         </div>
+      ) : (
+        <div className="loader"></div>
       )}
     </div>
   );

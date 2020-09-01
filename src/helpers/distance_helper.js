@@ -1,3 +1,4 @@
+// Using the Haversine formula to calculate the distance between two sets of longitude and latitude
 export const distance = (lat1, lon1, lat2, lon2) => {
   const p = 0.017453292519943295;
   const cosine = Math.cos;
