@@ -42,3 +42,6 @@ Launches the test runner in the interactive watch mode.<br />
 
 
 2) The EPIC API only returns a limited number of images for a given day. Because there are fewer images, it will use the same image for a longer period of time while the ISS is moving because the next closest image is more likely to be the previous image with a smaller dataset. In order to get a larger dataset, we are fetching image metadata for multiple days. Currently, the app has been configure to fetch image metadata for the past week, but this can be made configurable in a future enhancement.
+
+## Future feature enhancement
+As part of feature enhancement, it would be great to make the image metadata set more configurable. The app defaults to the past week but it would be cool to have a toggle in the UI that allows us to process more metadata. 
