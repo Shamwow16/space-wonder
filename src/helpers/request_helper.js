@@ -12,7 +12,7 @@ export const formatImageUrl = (closestImage) => {
 };
 
 const getLastWeekDateStamps = () => {
-  const dates = [...Array(2)].map((_, i) =>
+  const dates = [...Array(7)].map((_, i) =>
     moment().subtract(i, "d").format("YYYY-MM-DD")
   );
   return dates;
