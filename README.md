@@ -1,6 +1,6 @@
 ## About 
 
-This is my submission for the CarAdvise Code Challenge. It is a single page application built in React 16 that uses the current location of the International Space Station (ISS) to display the closest image to that location which has been captured by NASA's Earth Polychromatic Imaging Camera (EPIC). 
+This is a sample of my code. It is a single page application built in React 16 that uses the current location of the International Space Station (ISS) to display the closest image to that location which has been captured by NASA's Earth Polychromatic Imaging Camera (EPIC). 
 
 For more information about EPIC, please visit EPIC's [homepage](https://epic.gsfc.nasa.gov/about/epic)
 
